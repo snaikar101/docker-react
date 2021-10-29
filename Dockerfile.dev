@@ -1,0 +1,15 @@
+FROM node:alpine
+
+USER node
+
+RUN mkdir -p /home/node/project
+RUN mkdir -p /home/node/project/node_modules/.cache
+
+WORKDIR '/home/node/project'
+
+COPY --chown=node:node package.json .
+RUN npm install
+
+COPY --chown=node:node . .
+
+CMD ["npm", "run", "start"]
